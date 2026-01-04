@@ -1,23 +1,33 @@
+import SectionCard from "../components/SectionCard"
+import ResumeUpload from "../components/ResumeUpload"
+import LinkedInInput from "../components/LinkedInInput"
+import GitHubInput from "../components/GitHubInput"
+
 export default function AnalyzePage() {
   return (
-    <main className="min-h-screen bg-gray-50 p-10">
-      <div className="max-w-3xl mx-auto space-y-8">
-        <h1 className="text-2xl font-bold">Profile Analysis</h1>
+    <main className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-3xl mx-auto space-y-6 px-4">
+        <h1 className="text-3xl font-bold text-gray-900">
+          Profile Analysis
+        </h1>
 
-        <div className="bg-white p-6 rounded-lg border">
-          Resume Upload (PDF)
-        </div>
+        <SectionCard title="Resume">
+          <ResumeUpload />
+        </SectionCard>
 
-        <div className="bg-white p-6 rounded-lg border">
-          LinkedIn Details
-        </div>
+        <SectionCard title="LinkedIn Profile">
+          <LinkedInInput />
+        </SectionCard>
 
-        <div className="bg-white p-6 rounded-lg border">
-          GitHub Username
-        </div>
+        <SectionCard title="GitHub Profile">
+          <GitHubInput />
+        </SectionCard>
 
-        <button className="w-full py-3 bg-black text-white rounded-lg">
-          Analyze
+        <button
+          disabled
+          className="w-full py-3 rounded-xl bg-black text-white font-medium disabled:opacity-40"
+        >
+          Analyze Profile
         </button>
       </div>
     </main>
