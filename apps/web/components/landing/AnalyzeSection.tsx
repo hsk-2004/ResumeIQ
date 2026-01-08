@@ -1,11 +1,14 @@
 "use client"
 
+import Link from "next/link"
+
 const features = [
   {
     title: "Resume ATS Score",
     description:
       "Evaluate how well your resume passes Applicant Tracking Systems used by top recruiters.",
     accent: "border-indigo-500/40 text-indigo-400",
+    href: "/main/ats-score",
   },
   {
     title: "LinkedIn Profile Analyzer",
@@ -63,9 +66,7 @@ export default function AnalyzeSection() {
               className="rounded-xl border border-white/10 p-6 backdrop-blur-sm
                          hover:border-white/20 transition"
             >
-              <h3
-                className={`text-sm font-semibold mb-2 ${feature.accent}`}
-              >
+              <h3 className={`text-sm font-semibold mb-2 ${feature.accent}`}>
                 {feature.title}
               </h3>
 
@@ -73,11 +74,19 @@ export default function AnalyzeSection() {
                 {feature.description}
               </p>
 
-              <button
-                className="text-sm font-medium text-white hover:text-gray-300 transition"
-              >
-                Try now →
-              </button>
+              {/* CTA */}
+              {feature.href ? (
+                <Link
+                  href={feature.href}
+                  className="text-sm font-medium text-white hover:text-gray-300 transition"
+                >
+                  Try now →
+                </Link>
+              ) : (
+                <span className="text-sm font-medium text-gray-500 cursor-not-allowed">
+                  Coming soon
+                </span>
+              )}
             </div>
           ))}
         </div>

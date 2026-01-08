@@ -11,7 +11,7 @@ import CursorGlow from "@/components/shared/CursorGlow"
 import HeroSection from "@/components/landing/HeroSection"
 import AnalyzeSection from "@/components/landing/AnalyzeSection"
 import AboutSection from "@/components/landing/AboutSection"
-import DashboardSection from "@/components/landing/DashboardSection"
+import FAQSection from "@/components/landing/FAQSection"
 
 export default function AppPage() {
   const { isAuthenticated } = useAuth()
@@ -40,7 +40,7 @@ export default function AppPage() {
           <HeroSection />
           <AnalyzeSection />
           <AboutSection />
-          <DashboardSection />
+          <FAQSection />
         </div>
       </main>
 
