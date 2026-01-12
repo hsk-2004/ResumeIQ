@@ -1,14 +1,27 @@
 "use client"
 
-import { useAuth } from "@/context/AuthContext"
+import { useState } from "react"
+import { signIn } from "next-auth/react"
 import CursorGlow from "@/components/shared/CursorGlow"
 
 export default function LoginPage() {
-  const { login } = useAuth()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const handleCredentialsLogin = async () => {
+    setLoading(true)
+    await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: "/main",
+    })
+    setLoading(false)
+  }
 
   return (
     <div className="relative min-h-screen bg-[#0A0E1A] overflow-hidden">
-      
+
       {/* Cursor-based interactive glow */}
       <CursorGlow />
 
@@ -32,7 +45,7 @@ export default function LoginPage() {
       {/* Main content */}
       <main className="relative z-10 flex min-h-[calc(100vh-5rem)] items-center justify-center px-4">
         <div className="w-full max-w-sm rounded-xl border border-gray-800 bg-[#111827]/80 backdrop-blur-xl p-8 shadow-lg">
-          
+
           {/* Card header */}
           <div className="mb-6 text-center">
             <h1 className="text-2xl font-semibold text-white">
@@ -51,6 +64,8 @@ export default function LoginPage() {
             <input
               type="email"
               placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-md border border-gray-700 bg-[#0B0F1A] px-3 py-2 text-sm text-white placeholder-gray-500 transition focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -63,16 +78,19 @@ export default function LoginPage() {
             <input
               type="password"
               placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-md border border-gray-700 bg-[#0B0F1A] px-3 py-2 text-sm text-white placeholder-gray-500 transition focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
-          {/* Sign in */}
+          {/* Sign in (Credentials) */}
           <button
-            onClick={login}
-            className="w-full rounded-md bg-indigo-600 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
+            onClick={handleCredentialsLogin}
+            disabled={loading || !email || !password}
+            className="mb-4 w-full rounded-md bg-indigo-600 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:bg-indigo-600/50"
           >
-            Sign in
+            {loading ? "Signing in..." : "Sign in"}
           </button>
 
           {/* Divider */}
@@ -84,7 +102,7 @@ export default function LoginPage() {
 
           {/* Google login */}
           <button
-            onClick={login}
+            onClick={() => signIn("google", { callbackUrl: "http://localhost:3000/main" })}
             className="w-full rounded-md border border-gray-700 bg-[#0B0F1A] py-2 text-sm text-white transition hover:bg-gray-800"
           >
             Continue with{" "}

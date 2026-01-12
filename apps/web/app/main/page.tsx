@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { useAuth } from "@/context/AuthContext"
+import { useSession } from "next-auth/react"
 
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
@@ -14,17 +14,20 @@ import AboutSection from "@/components/landing/AboutSection"
 import FAQSection from "@/components/landing/FAQSection"
 
 export default function AppPage() {
-  const { isAuthenticated } = useAuth()
+  const { status } = useSession()
   const router = useRouter()
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (status === "unauthenticated") {
       router.push("/login")
     }
-  }, [isAuthenticated, router])
+  }, [status, router])
 
-  // Prevent UI flash before redirect
-  if (!isAuthenticated) return null
+  // Prevent UI flash while auth status is resolving
+  if (status === "loading") return null
+
+  // Safety (extra guard)
+  if (status !== "authenticated") return null
 
   return (
     <div className="relative min-h-screen bg-[#0B0F1A] text-gray-100 flex flex-col overflow-hidden">
@@ -35,7 +38,7 @@ export default function AppPage() {
       <Header />
 
       {/* Main content */}
-      <main className="relative z-10 flex-1">
+      <main className="relative z-10 flex-1 pt-32">
         <div className="max-w-7xl mx-auto px-6 py-12 space-y-24">
           <HeroSection />
           <AnalyzeSection />

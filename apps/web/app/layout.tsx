@@ -1,5 +1,5 @@
 import "./globals.css"
-import { AuthProvider } from "@/context/AuthContext"
+import { Providers } from "./providers"
 
 export default function RootLayout({
   children,
@@ -8,8 +8,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#0B0F1A] text-gray-100 antialiased">
-        <AuthProvider>{children}</AuthProvider>
+      <body className="min-h-screen bg-[#0B0F1A] text-gray-100 antialiased">
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   )
