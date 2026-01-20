@@ -3,23 +3,22 @@
 import { useEffect, useState } from "react"
 
 export default function CursorGlow() {
-  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [pos, setPos] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY })
-    }
+    const onMove = (e: MouseEvent) =>
+      setPos({ x: e.clientX, y: e.clientY })
 
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", onMove)
+    return () => window.removeEventListener("mousemove", onMove)
   }, [])
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
+      className="pointer-events-none fixed inset-0 z-0"
       style={{
         background: `radial-gradient(
-          600px at ${position.x}px ${position.y}px,
+          600px at ${pos.x}px ${pos.y}px,
           rgba(99,102,241,0.15),
           transparent 80%
         )`,

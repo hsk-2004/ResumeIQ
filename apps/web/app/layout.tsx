@@ -8,10 +8,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#0B0F1A] text-gray-100 antialiased">
-        <Providers>
-          {children}
-        </Providers>
+      <body className="min-h-screen flex flex-col bg-[#0B0F1A] text-gray-100 antialiased overflow-y-auto">
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

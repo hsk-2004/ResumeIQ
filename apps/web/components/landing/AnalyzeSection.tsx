@@ -15,12 +15,14 @@ const features = [
     description:
       "Analyze headline, summary, experience, and keyword density to improve recruiter visibility.",
     accent: "border-sky-500/40 text-sky-400",
+    href: "/main/linkedin-analyzer",
   },
   {
     title: "GitHub Profile Analyzer",
     description:
       "Review repositories, activity, README quality, and project relevance for hiring managers.",
     accent: "border-emerald-500/40 text-emerald-400",
+    href: "/main/github-analyzer",
   },
   {
     title: "Skill Gap Detection",
