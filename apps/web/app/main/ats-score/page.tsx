@@ -17,12 +17,30 @@ export default function ATSPage() {
   const { status } = useSession()
   const router = useRouter()
 
+  // ===== ALL HOOKS MUST BE AT THE TOP =====
+  const [file, setFile] = useState<File | null>(null)
+  const [role, setRole] = useState("")
+  const [score, setScore] = useState<number | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState<FormErrors>({})
+  const [touched, setTouched] = useState({ file: false, role: false })
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const roleInputRef = useRef<HTMLInputElement>(null)
+
   // Authentication check
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login?callbackUrl=/main/ats-score")
     }
   }, [status, router])
+
+  // Reset score if inputs change
+  useEffect(() => {
+    setScore(null)
+    setErrors({})
+  }, [file, role])
+
+  // ===== NOW CONDITIONAL RETURNS CAN HAPPEN =====
 
   // Prevent UI flash while auth status is resolving
   if (status === "loading") {
@@ -59,20 +77,8 @@ export default function ATSPage() {
   if (status !== "authenticated") {
     return null
   }
-  const [file, setFile] = useState<File | null>(null)
-  const [role, setRole] = useState("")
-  const [score, setScore] = useState<number | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [touched, setTouched] = useState({ file: false, role: false })
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const roleInputRef = useRef<HTMLInputElement>(null)
 
-  // Reset score if inputs change (professional behavior)
-  useEffect(() => {
-    setScore(null)
-    setErrors({})
-  }, [file, role])
+  // ===== HELPER FUNCTIONS =====
 
   // Validate file
   const validateFile = (file: File | null): string | undefined => {
@@ -169,49 +175,45 @@ export default function ATSPage() {
     setLoading(true)
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      const mockScore = Math.floor(60 + Math.random() * 30)
-      setScore(mockScore)
-    } catch (error) {
-      setErrors({
-        general: "An error occurred while analyzing your resume. Please try again.",
+      // Create FormData for API request
+      const formData = new FormData()
+      formData.append("resume", file!)
+      formData.append("targetRole", role.trim())
+
+      console.log("Sending request to /api/ats-score with:", {
+        fileName: file!.name,
+        fileSize: file!.size,
+        fileType: file!.type,
+        targetRole: role.trim()
       })
-    } finally {
-      setLoading(false)
-    }
-  }
 
-  // Handle analyze button click (for backward compatibility - now handled by form submit)
-  const handleAnalyze = async () => {
-    setTouched({ file: true, role: true })
-
-    const fileError = validateFile(file)
-    const roleError = validateRole(role)
-
-    if (fileError || roleError) {
-      setErrors({
-        file: fileError,
-        role: roleError,
+      // Call the ATS analysis API
+      const response = await fetch("/api/ats-score", {
+        method: "POST",
+        body: formData,
       })
-      if (fileError) {
-        fileInputRef.current?.focus()
-      } else if (roleError) {
-        roleInputRef.current?.focus()
+
+      console.log("Response status:", response.status)
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        console.error("API Error Response:", errorData)
+        throw new Error(errorData.error || "Failed to analyze resume")
       }
-      return
-    }
 
-    setErrors({})
-    setLoading(true)
+      const data = await response.json()
+      console.log("API Success Response:", data)
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      const mockScore = Math.floor(60 + Math.random() * 30)
-      setScore(mockScore)
+      if (data.success && data.analysis) {
+        setScore(data.analysis.score)
+      } else {
+        throw new Error(data.error || "Analysis failed")
+      }
     } catch (error) {
+      console.error("ATS analysis error:", error)
+      const errorMessage = error instanceof Error ? error.message : "An error occurred while analyzing your resume. Please try again."
       setErrors({
-        general: "An error occurred while analyzing your resume. Please try again.",
+        general: errorMessage,
       })
     } finally {
       setLoading(false)
