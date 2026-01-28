@@ -79,7 +79,7 @@ export default function DeveloperPage() {
       <CursorGlow />
       <Header />
 
-      <main className="relative z-10 flex-1 pt-4">
+      <main className="relative z-10 flex-1 pt-6 sm:pt-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-16">
           {/* Hero Section */}
           <div className="mb-10 sm:mb-14">

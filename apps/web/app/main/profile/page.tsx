@@ -65,7 +65,7 @@ export default function ProfilePage() {
             <Header />
 
             {/* Main content */}
-            <main className="relative z-10 flex-1 pt-20">
+            <main className="relative z-10 flex-1 pt-6 sm:pt-8">
                 <div className="max-w-4xl mx-auto px-6 py-12">
 
                     {/* Page Header */}
