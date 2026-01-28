@@ -284,9 +284,9 @@ export default function ATSPage() {
           )}
 
           {/* Main grid */}
-          <div className="grid gap-8 sm:gap-12 lg:grid-cols-3">
+          <div className="grid gap-6 sm:gap-8 lg:gap-12 lg:grid-cols-3">
             {/* LEFT: Inputs */}
-            <div className="lg:col-span-2 space-y-6 sm:space-y-10">
+            <div className="lg:col-span-2 space-y-4 sm:space-y-6 lg:space-y-8">
               <form onSubmit={handleSubmit} noValidate>
                 {/* Resume upload */}
                 <div className="rounded-xl border border-white/10 p-4 sm:p-6 backdrop-blur-sm">
@@ -414,7 +414,7 @@ export default function ATSPage() {
                     maxLength={100}
                     aria-invalid={touched.role && !!errors.role}
                     aria-describedby={touched.role && errors.role ? "role-error" : "role-help"}
-                    className={`w-full rounded-md border px-4 py-3 text-sm text-white placeholder-gray-500 transition-all focus:outline-none focus:ring-2 ${touched.role && errors.role
+                    className={`w-full rounded-md border px-4 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-gray-500 transition-all focus:outline-none focus:ring-2 min-h-12 sm:min-h-14 ${touched.role && errors.role
                       ? "border-red-500/50 bg-red-500/5 focus:ring-red-500/50"
                       : "border-white/10 bg-white/5 focus:ring-indigo-500 focus:border-indigo-500/50"
                       }`}
@@ -445,7 +445,7 @@ export default function ATSPage() {
                 <button
                   type="submit"
                   disabled={!isFormValid || loading}
-                  className="w-full rounded-md bg-indigo-600 py-3 text-sm font-medium text-white transition-all hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-[#0B0F1A] disabled:cursor-not-allowed disabled:bg-indigo-600/50 disabled:hover:bg-indigo-600/50"
+                  className="w-full rounded-md bg-indigo-600 px-4 py-3 sm:py-4 text-sm sm:text-base font-medium text-white transition-all hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-[#0B0F1A] disabled:cursor-not-allowed disabled:bg-indigo-600/50 disabled:hover:bg-indigo-600/50 min-h-12 sm:min-h-14 active:scale-95"
                   aria-busy={loading}
                 >
                   {loading ? (

@@ -46,33 +46,33 @@ const features = [
 
 export default function AnalyzeSection() {
   return (
-    <section id="analyze" className="px-6 py-16">
-      <div className="max-w-7xl mx-auto space-y-12">
+    <section id="analyze" className="px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto space-y-8 sm:space-y-12">
 
         {/* Section Header */}
         <div className="max-w-2xl">
-          <h2 className="text-2xl font-semibold text-white mb-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white mb-2 sm:mb-3">
             What ResumeIQ Can Do
           </h2>
-          <p className="text-sm text-gray-400">
+          <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
             Powerful recruiter-style analysis tools designed to help students
             and early professionals stand out in modern hiring systems.
           </p>
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="rounded-xl border border-white/10 p-6 backdrop-blur-sm
-                         hover:border-white/20 transition"
+              className="rounded-xl border border-white/10 p-4 sm:p-5 md:p-6 backdrop-blur-sm
+                         hover:border-white/20 transition flex flex-col"
             >
-              <h3 className={`text-sm font-semibold mb-2 ${feature.accent}`}>
+              <h3 className={`text-xs sm:text-sm font-semibold mb-2 sm:mb-3 ${feature.accent}`}>
                 {feature.title}
               </h3>
 
-              <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 leading-relaxed flex-1">
                 {feature.description}
               </p>
 
@@ -80,12 +80,12 @@ export default function AnalyzeSection() {
               {feature.href ? (
                 <Link
                   href={feature.href}
-                  className="text-sm font-medium text-white hover:text-gray-300 transition"
+                  className="inline-flex items-center text-xs sm:text-sm font-medium text-white hover:text-gray-300 transition active:scale-95 px-3 py-2 rounded min-h-10"
                 >
                   Try now →
                 </Link>
               ) : (
-                <span className="text-sm font-medium text-gray-500 cursor-not-allowed">
+                <span className="text-xs sm:text-sm font-medium text-gray-500 cursor-not-allowed px-3 py-2">
                   Coming soon
                 </span>
               )}
