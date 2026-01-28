@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef, FormEvent, ChangeEvent } from "react"
 import { useRouter } from "next/navigation"
-import { useSession } from "next-auth/react"
+// Authentication disabled - import removed
+// import { useSession } from "next-auth/react"
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 import CursorGlow from "@/components/shared/CursorGlow"
@@ -14,7 +15,8 @@ interface FormErrors {
 }
 
 export default function ATSPage() {
-  const { status } = useSession()
+  // Authentication disabled for development/demo
+  // const { status } = useSession()
   const router = useRouter()
 
   // ===== ALL HOOKS MUST BE AT THE TOP =====
@@ -27,12 +29,12 @@ export default function ATSPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const roleInputRef = useRef<HTMLInputElement>(null)
 
-  // Authentication check
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login?callbackUrl=/main/ats-score")
-    }
-  }, [status, router])
+  // Authentication check disabled - site is open
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     router.push("/login?callbackUrl=/main/ats-score")
+  //   }
+  // }, [status, router])
 
   // Reset score if inputs change
   useEffect(() => {
@@ -42,41 +44,41 @@ export default function ATSPage() {
 
   // ===== NOW CONDITIONAL RETURNS CAN HAPPEN =====
 
-  // Prevent UI flash while auth status is resolving
-  if (status === "loading") {
-    return (
-      <div className="relative min-h-screen bg-[#0B0F1A] text-gray-100 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <svg
-            className="h-8 w-8 animate-spin text-indigo-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            aria-label="Loading"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-          <p className="text-sm text-gray-400">Loading...</p>
-        </div>
-      </div>
-    )
-  }
+  // Prevent UI flash while auth status is resolving - DISABLED
+  // if (status === "loading") {
+  //   return (
+  //     <div className="relative min-h-screen bg-[#0B0F1A] text-gray-100 flex items-center justify-center">
+  //       <div className="flex flex-col items-center gap-3">
+  //         <svg
+  //           className="h-8 w-8 animate-spin text-indigo-500"
+  //           fill="none"
+  //           viewBox="0 0 24 24"
+  //           aria-label="Loading"
+  //         >
+  //           <circle
+  //             className="opacity-25"
+  //             cx="12"
+  //             cy="12"
+  //             r="10"
+  //             stroke="currentColor"
+  //             strokeWidth="4"
+  //           />
+  //           <path
+  //             className="opacity-75"
+  //             fill="currentColor"
+  //             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+  //           />
+  //         </svg>
+  //         <p className="text-sm text-gray-400">Loading...</p>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
-  // Safety guard - don't render if not authenticated
-  if (status !== "authenticated") {
-    return null
-  }
+  // Safety guard - don't render if not authenticated - DISABLED
+  // if (status !== "authenticated") {
+  //   return null
+  // }
 
   // ===== HELPER FUNCTIONS =====
 

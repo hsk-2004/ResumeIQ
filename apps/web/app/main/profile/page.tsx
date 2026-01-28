@@ -2,57 +2,59 @@
 
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { useSession } from "next-auth/react"
+// Authentication disabled for development
+// import { useSession } from "next-auth/react"
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 import CursorGlow from "@/components/shared/CursorGlow"
 
 export default function ProfilePage() {
-    const { data: session, status } = useSession()
+    // Authentication disabled - site is open
+    // const { data: session, status } = useSession()
     const router = useRouter()
 
-    // Redirect unauthenticated users to login
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            router.push("/login")
-        }
-    }, [status, router])
+    // Auth redirect disabled
+    // useEffect(() => {
+    //     if (status === "unauthenticated") {
+    //         router.push("/login")
+    //     }
+    // }, [status, router])
 
-    // Loading state
-    if (status === "loading") {
-        return (
-            <div className="relative min-h-screen bg-[#0B0F1A] text-gray-100 flex items-center justify-center">
-                <div className="flex flex-col items-center gap-3">
-                    <svg
-                        className="h-8 w-8 animate-spin text-indigo-500"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        aria-label="Loading"
-                    >
-                        <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                        />
-                        <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                    </svg>
-                    <p className="text-sm text-gray-400">Loading...</p>
-                </div>
-            </div>
-        )
-    }
+    // Loading state disabled - REMOVED
+    // if (status === "loading") {
+    //     return (
+    //         <div className="relative min-h-screen bg-[#0B0F1A] text-gray-100 flex items-center justify-center">
+    //             <div className="flex flex-col items-center gap-3">
+    //                 <svg
+    //                     className="h-8 w-8 animate-spin text-indigo-500"
+    //                     fill="none"
+    //                     viewBox="0 0 24 24"
+    //                     aria-label="Loading"
+    //                 >
+    //                     <circle
+    //                         className="opacity-25"
+    //                         cx="12"
+    //                         cy="12"
+    //                         r="10"
+    //                         stroke="currentColor"
+    //                         strokeWidth="4"
+    //                     />
+    //                     <path
+    //                         className="opacity-75"
+    //                         fill="currentColor"
+    //                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+    //                     />
+    //                 </svg>
+    //                 <p className="text-sm text-gray-400">Loading...</p>
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
-    // Safety guard
-    if (status !== "authenticated") {
-        return null
-    }
+    // Safety guard disabled - authentication disabled
+    // if (status !== "authenticated") {
+    //     return null
+    // }
 
     return (
         <div className="relative min-h-screen bg-[#0B0F1A] text-gray-100 flex flex-col overflow-hidden">
@@ -77,22 +79,14 @@ export default function ProfilePage() {
 
                         {/* Avatar Section */}
                         <div className="flex items-center gap-6 mb-8 pb-8 border-b border-white/10">
-                            {session?.user?.image ? (
-                                <img
-                                    src={session.user.image}
-                                    alt="Profile"
-                                    className="w-20 h-20 rounded-full border-2 border-white/10"
-                                />
-                            ) : (
-                                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold border-2 border-white/10">
-                                    {session?.user?.email?.[0]?.toUpperCase() || 'U'}
-                                </div>
-                            )}
+                            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold border-2 border-white/10">
+                                D
+                            </div>
                             <div>
                                 <h2 className="text-xl font-semibold text-white mb-1">
-                                    {session?.user?.name || 'User'}
+                                    Demo User
                                 </h2>
-                                <p className="text-gray-400">{session?.user?.email}</p>
+                                <p className="text-gray-400">demo@resumeiq.com</p>
                             </div>
                         </div>
 
@@ -107,7 +101,7 @@ export default function ProfilePage() {
                                         Email Address
                                     </label>
                                     <div className="px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white">
-                                        {session?.user?.email}
+                                        demo@resumeiq.com
                                     </div>
                                 </div>
 
@@ -117,7 +111,7 @@ export default function ProfilePage() {
                                         Full Name
                                     </label>
                                     <div className="px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white">
-                                        {session?.user?.name || 'Not set'}
+                                        Demo User
                                     </div>
                                 </div>
                             </div>
