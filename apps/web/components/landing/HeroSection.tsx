@@ -4,8 +4,8 @@ export default function HeroSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
         
         {/* Left: Product messaging */}
-        <div className="text-center md:text-left">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6">
+        <div className="text-center md:text-left order-2 md:order-1">
+          <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6 leading-tight">
             ResumeIQ
           </h1>
 
@@ -30,16 +30,9 @@ export default function HeroSection() {
         </div>
 
         {/* Right: Video/Image */}
-        <div className="relative">
-          {/* Mobile: Fallback image */}
-          <img
-            className="md:hidden w-full rounded-xl border border-white/10 bg-black object-cover aspect-video"
-            src="/api/placeholder?width=400&height=300"
-            alt="ResumeIQ Demo"
-          />
-          
-          {/* Desktop: Video */}
-          <div className="hidden md:block overflow-hidden rounded-xl border border-white/10 bg-black">
+        <div className="relative w-full h-auto order-1 md:order-2">
+          {/* Video for all screen sizes */}
+          <div className="overflow-hidden rounded-xl border border-white/10 bg-black w-full aspect-video">
             <video
               className="w-full h-full object-cover"
               src="/demo.mp4"
@@ -47,6 +40,7 @@ export default function HeroSection() {
               loop
               muted
               playsInline
+              poster="/api/placeholder?width=400&height=300"
             />
           </div>
         </div>

@@ -41,7 +41,7 @@ export default function AppPage() {
       {/* Main content */}
       <main className="relative z-10 flex-1">
         {/* Hero Section - Full viewport height with centered content */}
-        <section className="min-h-[calc(100vh-4rem)] flex items-center justify-center">
+        <section className="min-h-[calc(100vh-3.5rem)] sm:min-h-[calc(100vh-4rem)] flex items-center justify-center pt-8 sm:pt-12">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <HeroSection />
           </div>
